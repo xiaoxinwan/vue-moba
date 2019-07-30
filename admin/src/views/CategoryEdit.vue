@@ -1,0 +1,53 @@
+<template>
+  <div>
+    <h1>{{id ? '编辑': '新建'}}分类</h1>
+    <el-form label-width="100px" @submit.native.prevent="save">
+      <el-form-item label="分类名称">
+        <el-col :span="10">
+          <el-input v-model="model.name" style="minWidth: 200px"></el-input>
+        </el-col>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" native-type="submit">保存</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      model: {}
+    };
+  },
+  props: {
+    id: {}
+  },
+  created() {
+    this.id && this.fetch();
+  },
+  methods: {
+    async save() {
+      let res;
+      if (this.id) {
+        res = await this.$http.put(`categories/${this.id}`, this.model);
+      } else {
+        res = await this.$http.post("categories", this.model);
+      }
+      this.$router.push("/categories/list");
+      this.$message({
+        type: "success",
+        message: "保存成功"
+      });
+    },
+    async fetch() {
+      const res = await this.$http.get(`categories/${this.id}`);
+      this.model = res.data;
+    }
+  }
+};
+</script>
+
+<style>
+</style>
