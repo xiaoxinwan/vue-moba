@@ -5,6 +5,9 @@ import CategoryCreate from "./views/CategoryEdit.vue";
 import CategoryList from "./views/CategoryList.vue";
 import ItemEdit from "./views/ItemEdit.vue";
 import ItemList from "./views/ItemList.vue";
+import HeroEdit from './views/HeroEdit.vue'
+import HeroList from './views/HeroList.vue'
+
 
 Vue.use(Router);
 
@@ -47,6 +50,23 @@ export default new Router({
           path: "/items/list",
           name: "item-list",
           component: ItemList
+        },
+
+        {
+          path: "/heroes/create",
+          name: "hero-create",
+          component: HeroEdit
+        },
+        {
+          path: "/heroes/edit/:id",
+          name: "hero-edit",
+          component: HeroEdit,
+          props: true
+        },
+        {
+          path: "/heroes/list",
+          name: "hero-list",
+          component: HeroList
         }
       ]
     }
