@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-card header="请登录" class="login-card">
-      <el-form>
+      <el-form @submit.native.prevent="login">
         <el-form-item label="用户名">
           <el-input v-model="model.username"></el-input>
         </el-form-item>
@@ -9,7 +9,7 @@
           <el-input v-model="model.password" type="password"></el-input>
         </el-form-item>
         <el-form-item label-position="right" label-width="18rem" style="margin-top: 2rem;">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" native-type="submit">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -24,6 +24,17 @@ export default {
         password: ""
       }
     };
+  },
+  methods: {
+    async login() {
+      const res = await this.$http.post("login", this.model);
+      localStorage.token = res.data.token;
+      this.$router.push("/");
+      this.$message({
+        type: 'success',
+        message: '登录成功'
+      })
+    }
   }
 };
 </script>
