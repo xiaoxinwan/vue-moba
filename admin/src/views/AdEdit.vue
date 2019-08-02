@@ -20,7 +20,8 @@
             <el-form-item label="广告图片" style="margin-top: 1rem;">
               <el-upload
                 class="image-uploader"
-                :action="$http.defaults.baseURL + '/upload'"
+                :action="uploadUrl"
+                :headers="getAuthHeaders()"
                 :show-file-list="false"
                 :on-success="res => $set(item, 'image', res.url)"
               >

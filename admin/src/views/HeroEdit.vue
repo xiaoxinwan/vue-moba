@@ -2,7 +2,7 @@
   <div>
     <h1>{{id ? '编辑': '新建'}}英雄</h1>
     <el-form label-width="100px" @submit.native.prevent="save">
-      <el-tabs type="border-card" value="skills">
+      <el-tabs type="border-card" value="basic">
         <el-tab-pane label="基础信息" name="basic">
           <el-form-item label="英雄名称">
             <el-col :span="10">
@@ -88,7 +88,8 @@
               <el-form-item label="图标">
                 <el-upload
                   class="avatar-uploader"
-                  :action="$http.defaults.baseURL + '/upload'"
+                  :action="uploadUrl"
+                  :headers="getAuthHeaders()"
                   :show-file-list="false"
                   :on-success="res => $set(item, 'icon', res.url)"
                 >
@@ -126,7 +127,7 @@ export default {
         name: "",
         avatar: "",
         scores: {
-          difficult: 1
+          difficult: 0
         }
       }
     };

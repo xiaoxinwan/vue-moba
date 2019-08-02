@@ -10,7 +10,8 @@
       <el-form-item label="物品图标">
         <el-upload
           class="item-uploader"
-          :action="$http.defaults.baseURL + '/upload'"
+          :action="uploadUrl"
+          :headers="getAuthHeaders()"
           :show-file-list="false"
           :on-success="handleItemSuccess"
         >
@@ -57,35 +58,35 @@ export default {
       this.model = res.data;
     },
     handleItemSuccess(res) {
-      this.$set(this.model, 'icon', res.url)
-      console.log(res)
+      this.$set(this.model, "icon", res.url);
+      console.log(res);
     }
   }
 };
 </script>
 
 <style>
-  .item-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .item-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .item-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .item {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+.item-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.item-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.item-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.item {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>
