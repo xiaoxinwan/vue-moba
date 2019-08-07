@@ -1,8 +1,16 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
+import './assets/iconfont/iconfont.css';
+import "./assets/scss/style.scss";
+import router from "./router";
+Vue.config.productionTip = false;
 
-Vue.config.productionTip = false
+import VueAwesomeSwiper from "vue-awesome-swiper";
+import "swiper/dist/css/swiper.css";
+
+Vue.use(VueAwesomeSwiper /* { default global options } */);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  render: h => h(App)
+}).$mount("#app");
