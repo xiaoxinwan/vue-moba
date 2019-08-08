@@ -60,7 +60,9 @@
     <!-- end of icons -->
     <list-card title="新闻资讯" icon="Menu" :categories="newsCats">
       <template #items="{category}">
-        <div
+        <router-link
+          tag="div"
+          :to="`/articles/${item._id}`"
           class="py-2 d-flex jc-center py-2 fs-lg mx-1"
           v-for="(item, i) in category.newsList"
           :key="i"
@@ -69,14 +71,14 @@
           <span class="px-2">|</span>
           <span class="flex-1 text-flow pr-2">{{item.title}}</span>
           <span class="text-grey-date fs-sm">{{item.createdAt | date}}</span>
-        </div>
+        </router-link>
       </template>
     </list-card>
     <list-card title="英雄列表" icon="card-hero" :categories="heroCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin: 0 -0.5rem;">
           <div class="p-2" style="width: 20%;" v-for="(item, i) in category.heroList" :key="i">
-            <img :src="item.avatar" class="w-100"/>
+            <img :src="item.avatar" class="w-100" />
             <span>{{item.name}}</span>
           </div>
         </div>

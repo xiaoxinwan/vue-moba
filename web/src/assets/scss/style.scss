@@ -22,6 +22,11 @@ a {
   color: #999;
 }
 
+p {
+  line-height: 1.5rem;
+}
+
+
 @each $colorKey,
 $color in $colors {
   .text-#{$colorKey} {
@@ -138,6 +143,7 @@ $type in $spacing-types {
 // nav
 .nav {
   display: flex;
+
   .nav-item {
     border-bottom: 3px solid transparent;
     padding-bottom: 0.2rem;
@@ -231,8 +237,15 @@ $type in $spacing-types {
 }
 
 // 文字溢出
-.text-flow{
+.text-flow {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+// borders
+@each $dir in (top, right, bottom, left) {
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid map-get($map: $colors, $key: 'light-border')
+  }
 }
