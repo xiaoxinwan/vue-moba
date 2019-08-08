@@ -58,21 +58,21 @@
       </div>
     </div>
     <!-- end of icons -->
-    <list-card title="新闻资讯" icon="Menu" :categories="newCats">
+    <list-card title="新闻资讯" icon="Menu" :categories="newsCats">
       <template #items="{category}">
         <div
           class="py-2 d-flex jc-center py-2 fs-lg mx-1"
-          v-for="(item, i) in category.itemsLists"
+          v-for="(item, i) in category.newsList"
           :key="i"
         >
           <span class="text-title">[{{item.categoryName}}]</span>
-          <span>|</span>
-          <span class="flex-1 text-flow">{{item.title}}</span>
-          <span class="text-grey-date fs-sm">{{item.date}}</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-flow pr-2">{{item.title}}</span>
+          <span class="text-grey-date fs-sm">{{item.createdAt | date}}</span>
         </div>
       </template>
     </list-card>
-    
+
     <m-card title="英雄列表" icon="card-hero"></m-card>
     <m-card title="精彩视频" icon="video"></m-card>
     <m-card title="图文攻略" icon="tuwen"></m-card>
@@ -82,10 +82,17 @@
 <script>
 import MCard from "../components/Card";
 import ListCard from "../components/ListCard";
+import dayjs from "dayjs";
+
 export default {
   components: {
     MCard,
     ListCard
+  },
+  filters: {
+    date(val) {
+      return dayjs(val).format("MM/DD");
+    }
   },
   data() {
     return {
@@ -99,49 +106,17 @@ export default {
         },
         loop: true
       },
-      newCats: [
-        {
-          name: "热门",
-          itemsLists: new Array(5).fill({}).map(v => ({
-            categoryName: "公告",
-            title: "8月6日全服不停机更新公告",
-            date: "08/05"
-          }))
-        },
-        {
-          name: "新闻",
-          itemsLists: new Array(5).fill({}).map(v => ({
-            categoryName: "新闻",
-            title: "针对不法组织恶意冒用王者荣耀商户特权牟利的严正声明",
-            date: "08/05"
-          }))
-        },
-        {
-          name: "公告",
-          itemsLists: new Array(5).fill({}).map(v => ({
-            categoryName: "公告",
-            title: "8月6日全服不停机更新公告",
-            date: "08/05"
-          }))
-        },
-        {
-          name: "活动",
-          itemsLists: new Array(5).fill({}).map(v => ({
-            categoryName: "活动",
-            title: "峡谷喜迎七夕节 大波福利来袭",
-            date: "08/05"
-          }))
-        },
-        {
-          name: "赛事",
-          itemsLists: new Array(5).fill({}).map(v => ({
-            categoryName: "赛事",
-            title: "8月6日【比赛服】版本更新公告",
-            date: "08/06"
-          }))
-        }
-      ]
+      newsCats: []
     };
+  },
+  methods: {
+    async fetchNewsCats() {
+      const res = await this.$http.get("news/list");
+      this.newsCats = res.data;
+    }
+  },
+  created() {
+    this.fetchNewsCats();
   }
 };
 </script>
