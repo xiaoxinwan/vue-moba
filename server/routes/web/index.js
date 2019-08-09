@@ -720,17 +720,21 @@ module.exports = app => {
   // 文章详情
   router.get("/articles/:id", async (req, res) => {
     const data = await Article.findById(req.params.id).lean();
-    data.related = await Article.find().where({
-      categories: {$in: data.categories}
-    }).limit(2)
+    data.related = await Article.find()
+      .where({
+        categories: { $in: data.categories }
+      })
+      .limit(2);
     res.send(data);
   });
 
   // 英雄页面
-  router.get('/heroes/:id', async (req, res) => {
-    const data = await Hero.findById(req.params.id).lean()
-    res.send(data)
-  })
+  router.get("/heroes/:id", async (req, res) => {
+    const data = await Hero.findById(req.params.id)
+      .populate("categories items1 items2 partners.hero")
+      .lean();
+    res.send(data);
+  });
 
   app.use("/web/api", router);
 };

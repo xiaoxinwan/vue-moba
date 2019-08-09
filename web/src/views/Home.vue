@@ -77,15 +77,21 @@
     <list-card title="英雄列表" icon="card-hero" :categories="heroCats">
       <template #items="{category}">
         <div class="d-flex flex-wrap" style="margin: 0 -0.5rem;">
-          <div class="p-2" style="width: 20%;" v-for="(item, i) in category.heroList" :key="i">
+          <router-link
+            tag="div"
+            :to="`/heroes/${item._id}`"
+            class="p-2"
+            style="width: 20%;"
+            v-for="(item, i) in category.heroList"
+            :key="i"
+          >
             <img :src="item.avatar" class="w-100" />
             <span>{{item.name}}</span>
-          </div>
+          </router-link>
         </div>
       </template>
     </list-card>
 
-    <m-card title="英雄列表" icon="card-hero"></m-card>
     <m-card title="精彩视频" icon="video"></m-card>
     <m-card title="图文攻略" icon="tuwen"></m-card>
   </div>
